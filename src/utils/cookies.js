@@ -18,8 +18,10 @@ const d$cookies = (name) => {
 };
 
 const COOKIE_CERT_KEY = 'CERT'
+const d$certCookies = () => d$cookies(COOKIE_CERT_KEY)
 const s$certCookies = (token, { datetime }) => s$cookies(COOKIE_CERT_KEY,token,{datetime})
-const g$certCookies = () => {
+const g$certCookies = () => g$cookies(COOKIE_CERT_KEY)
+const g$certUserCookies = () => {
     const token = getCookies(COOKIE_CERT_KEY);
     if (token) {
         const { id, username, exp } = parseJwt(token);
@@ -37,4 +39,4 @@ const g$certCookies = () => {
     };
 };
 
-export { s$cookies, g$cookies, d$cookies, g$certCookies, s$certCookies };
+export { s$cookies, g$cookies, d$cookies, g$certCookies, s$certCookies, d$certCookies, g$certUserCookies };

@@ -22,9 +22,9 @@
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <form role="form">
+                  <form role="form" @submit.prevent="(e) => submit(e.target)">
                     <div class="mb-3">
-                      <argon-input type="email" placeholder="Email" name="email" size="lg" />
+                      <argon-input type="text" placeholder="Username" name="username" size="lg" />
                     </div>
                     <div class="mb-3">
                       <argon-input type="password" placeholder="Password" name="password" size="lg" />
@@ -106,5 +106,16 @@ export default {
     this.$store.state.showFooter = true;
     body.classList.add("bg-gray-100");
   },
+  methods: {
+    async submit(form){
+      const username = form['username'].value
+      const password = form['password'].value
+
+      const input = {
+        username, password
+      }
+      console.log('input',input)
+    }
+  }
 };
 </script>

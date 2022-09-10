@@ -1,3 +1,3 @@
-const baseApiUrl = import.meta.env.API_BASE_URL;
+const baseApiUrl = import.meta.env.VITE_API_BASE_URL;
 
 export { baseApiUrl };

@@ -90,7 +90,21 @@
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="g$user">
+        <a class="nav-link" href="#">
+          <div
+            class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center"
+          >
+            <i class="ni ni-collection text-info text-sm opacity-10"></i>
+          </div>
+          <span
+            class="nav-link-text"
+            :class="this.$store.state.isRTL ? ' me-1' : 'ms-1'"
+            >{{ this.$store.state.isRTL ? 'Logout' : 'Logout' }}</span
+          >
+        </a>
+      </li>
+      <li class="nav-item" v-else>
         <sidenav-item
           url="/signin"
           :class="getRoute() === 'signin' ? 'active' : ''"
@@ -101,7 +115,7 @@
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-else>
         <sidenav-item
           url="/signup"
           :class="getRoute() === 'signup' ? 'active' : ''"
@@ -126,6 +140,9 @@
 import SidenavItem from "./SidenavItem.vue";
 // import SidenavCard from "./SidenavCard.vue";
 
+import d$auth from '@/store/auth.d';
+import { mapState } from "pinia";
+
 export default {
   name: "SidenavList",
   props: {
@@ -141,6 +158,9 @@ export default {
   components: {
     SidenavItem,
     // SidenavCard
+  },
+  computed: {
+    ...mapState(d$auth,['g$user']),
   },
   methods: {
     getRoute() {

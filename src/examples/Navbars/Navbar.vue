@@ -34,7 +34,7 @@
           </div>
         </div>
         <ul class="navbar-nav justify-content-end">
-          <li class="nav-item d-flex align-items-center">
+          <li class="nav-item d-flex align-items-center" v-if="!g$user">
             <router-link
               :to="{ name: 'Signin' }"
               class="px-0 nav-link font-weight-bold text-white"
@@ -50,7 +50,7 @@
               <span v-else class="d-sm-inline d-none">Sign In</span>
             </router-link>
           </li>
-          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+          <li class="nav-item d-xl-none px-3 d-flex align-items-center">
             <a
               href="#"
               @click="toggleSidebar"
@@ -70,19 +70,29 @@
             </a>
           </li>
           <li
+            v-if="g$user"
             class="nav-item dropdown d-flex align-items-center"
             :class="this.$store.state.isRTL ? 'ps-2' : 'pe-2'"
           >
             <a
               href="#"
               class="p-0 nav-link text-white"
-              :class="[showMenu ? 'show' : '']"
+              :class="[showMenu ? 'show' : '','d-flex']"
               id="dropdownMenuButton"
               data-bs-toggle="dropdown"
               aria-expanded="false"
               @click="showMenu = !showMenu"
             >
-              <i class="cursor-pointer fa fa-bell"></i>
+              <div class="my-auto">
+                <img
+                  src="../../assets/img/team-2.jpg"
+                  class="avatar avatar-sm rounded-circle"
+                  :alt="g$user.username"
+                />
+              </div>
+              <div class="d-flex flex-column justify-content-center ms-2">
+                <h6 class="mb-0">{{g$user.username}}</h6>
+              </div>
             </a>
             <ul
               class="px-2 py-3 dropdown-menu dropdown-menu-end me-sm-n4"
@@ -101,41 +111,39 @@
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="mb-1 text-sm font-weight-normal">
-                        <span class="font-weight-bold">New message</span> from
-                        Laur
+                        Logged in as "<span class="font-weight-bold">{{g$user.username}}</span>"
                       </h6>
-                      <p class="mb-0 text-xs text-secondary">
+                      <!-- <p class="mb-0 text-xs text-secondary">
                         <i class="fa fa-clock me-1"></i>
                         13 minutes ago
-                      </p>
+                      </p> -->
                     </div>
                   </div>
                 </a>
               </li>
-              <li class="mb-2">
+              <li class="mb-0">
                 <a class="dropdown-item border-radius-md" href="javascript:;">
-                  <div class="py-1 d-flex">
-                    <div class="my-auto">
-                      <img
-                        src="../../assets/img/small-logos/logo-spotify.svg"
-                        class="avatar avatar-sm bg-gradient-dark me-3"
-                        alt="logo spotify"
-                      />
+                  <div class="py-1  d-flex">
+                    <div class="my-auto me-3">
+                      <div
+                        class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center"
+                      >
+                        <i class="ni ni-user-run text-success text-sm opacity-10"></i>
+                      </div>
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="mb-1 text-sm font-weight-normal">
-                        <span class="font-weight-bold">New album</span> by
-                        Travis Scott
+                        <span class="font-weight-bold">Logout</span>
                       </h6>
-                      <p class="mb-0 text-xs text-secondary">
+                      <!-- <p class="mb-0 text-xs text-secondary">
                         <i class="fa fa-clock me-1"></i>
                         1 day
-                      </p>
+                      </p> -->
                     </div>
                   </div>
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a class="dropdown-item border-radius-md" href="javascript:;">
                   <div class="py-1 d-flex">
                     <div
@@ -189,7 +197,7 @@
                     </div>
                   </div>
                 </a>
-              </li>
+              </li> -->
             </ul>
           </li>
         </ul>
@@ -200,6 +208,9 @@
 <script>
 import Breadcrumbs from "../Breadcrumbs.vue";
 import { mapMutations, mapActions } from "vuex";
+
+import d$auth from '@/store/auth.d';
+import { mapState } from "pinia";
 
 export default {
   name: "navbar",
@@ -217,7 +228,7 @@ export default {
     ...mapActions(["toggleSidebarColor"]),
 
     toggleSidebar() {
-      this.toggleSidebarColor("bg-white");
+      // this.toggleSidebarColor("bg-white");
       this.navbarMinimize();
     }
   },
@@ -225,6 +236,7 @@ export default {
     Breadcrumbs
   },
   computed: {
+    ...mapState(d$auth,['g$user']),
     currentRouteName() {
       return this.$route.name;
     }

@@ -122,7 +122,7 @@
                 </a>
               </li>
               <li class="mb-0">
-                <a class="dropdown-item border-radius-md" href="javascript:;">
+                <a class="dropdown-item border-radius-md" href="javascript:;" @click="logout">
                   <div class="py-1  d-flex">
                     <div class="my-auto me-3">
                       <div
@@ -210,7 +210,7 @@ import Breadcrumbs from "../Breadcrumbs.vue";
 import { mapMutations, mapActions } from "vuex";
 
 import d$auth from '@/store/auth.d';
-import { mapState } from "pinia";
+import { mapState, mapActions as pinia$mapActions } from "pinia";
 
 export default {
   name: "navbar",
@@ -226,10 +226,23 @@ export default {
   methods: {
     ...mapMutations(["navbarMinimize", "toggleConfigurator"]),
     ...mapActions(["toggleSidebarColor"]),
+    ...pinia$mapActions(d$auth,['a$logout']),
 
     toggleSidebar() {
       // this.toggleSidebarColor("bg-white");
       this.navbarMinimize();
+    },
+    async logout() {
+      try {
+        const isLoggedout = await this.a$logout()
+        if (isLoggedout) {
+          this.$router.push('/signin')
+        } else {
+          console.log('gagal logout')
+        }
+      } catch (error) {
+        console.log('error logout',error)
+      }
     }
   },
   components: {

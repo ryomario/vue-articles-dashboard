@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import * as sv$auth from '@/services/auth';
-import { s$certCookies, g$certUserCookies } from '@/utils/cookies';
+import { s$certCookies, g$certUserCookies, d$certCookies } from '@/utils/cookies';
 
 import { parseISO } from 'date-fns';
 
@@ -35,6 +35,19 @@ export default defineStore({
         return true;
       } catch (error) {
         throw error;
+      }
+    },
+    async a$logout() {
+      try {
+        d$certCookies();
+        await this.a$setUser();
+        // gagal logout
+        return false;
+      } catch (error) {
+        // Tidak perlu handle karena ini untuk set user undefined dari a$setUser
+        // jadi begitulah
+        // throw error;
+        return true;
       }
     },
     async a$userValidation() {

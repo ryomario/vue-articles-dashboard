@@ -4,7 +4,7 @@
     id="sidenav-collapse-main"
   >
     <ul class="navbar-nav">
-      <li class="nav-item">
+      <li class="nav-item" v-if="g$user">
         <sidenav-item
           url="/dashboard-default"
           :class="getRoute() === 'dashboard-default' ? 'active' : ''"
@@ -15,7 +15,7 @@
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="g$user">
         <sidenav-item
           url="/tables"
           :class="getRoute() === 'tables' ? 'active' : ''"
@@ -28,7 +28,7 @@
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="g$user">
         <sidenav-item
           url="/billing"
           :class="getRoute() === 'billing' ? 'active' : ''"
@@ -79,7 +79,7 @@
           ACCOUNT PAGES
         </h6>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="g$user">
         <sidenav-item
           url="/profile"
           :class="getRoute() === 'profile' ? 'active' : ''"
@@ -91,11 +91,11 @@
         </sidenav-item>
       </li>
       <li class="nav-item" v-if="g$user">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="#" @click="logout">
           <div
             class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center"
           >
-            <i class="ni ni-collection text-info text-sm opacity-10"></i>
+            <i class="ni ni-user-run text-info text-sm opacity-10"></i>
           </div>
           <span
             class="nav-link-text"
@@ -104,7 +104,7 @@
           >
         </a>
       </li>
-      <li class="nav-item" v-else>
+      <li class="nav-item" v-if="!g$user">
         <sidenav-item
           url="/signin"
           :class="getRoute() === 'signin' ? 'active' : ''"
@@ -115,7 +115,7 @@
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item" v-else>
+      <li class="nav-item" v-if="!g$user">
         <sidenav-item
           url="/signup"
           :class="getRoute() === 'signup' ? 'active' : ''"
@@ -141,7 +141,7 @@ import SidenavItem from "./SidenavItem.vue";
 // import SidenavCard from "./SidenavCard.vue";
 
 import d$auth from '@/store/auth.d';
-import { mapState } from "pinia";
+import { mapState, mapActions } from "pinia";
 
 export default {
   name: "SidenavList",
@@ -163,6 +163,19 @@ export default {
     ...mapState(d$auth,['g$user']),
   },
   methods: {
+    ...mapActions(d$auth,['a$logout']),
+    async logout() {
+      try {
+        const isLoggedout = await this.a$logout()
+        if (isLoggedout) {
+          this.$router.push('/signin')
+        } else {
+          console.log('gagal logout')
+        }
+      } catch (error) {
+        console.log('error logout',error)
+      }
+    },
     getRoute() {
       const routeArr = this.$route.path.split("/");
       return routeArr[1];

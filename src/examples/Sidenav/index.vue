@@ -5,7 +5,7 @@
     :class="`${this.$store.state.darkMode ? 'bg-transparent' : 'bg-success'}`"
   />
   <aside
-    class="my-3 overflow-auto border-0 sidenav navbar navbar-vertical navbar-expand-xs border-radius-xl"
+    class="my-3 overflow-auto border-0 sidenav navbar navbar-vertical navbar-expand-xs border-radius-xl d-xl-block"
     :class="`${
       this.$store.state.isRTL
         ? 'me-3 rotate-caret fixed-end'
@@ -15,7 +15,8 @@
       this.$store.state.layout === 'landing'
         ? 'bg-transparent shadow-none'
         : ' '
-    } ${this.$store.state.sidebarType}`"
+    } ${this.$store.state.sidebarType} 
+    ${this.$store.state.showSidenav?'d-block':'d-none'}`"
     id="sidenav-main"
   >
     <div class="sidenav-header">

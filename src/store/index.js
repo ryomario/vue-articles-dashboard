@@ -4,7 +4,7 @@ export default createStore({
   state: {
     titleApp: 'Go-Blog Dashboard',
     hideConfigButton: false,
-    isPinned: true,
+    isPinned: false,
     showConfig: false,
     sidebarType: "bg-white",
     isRTL: false,
@@ -13,7 +13,7 @@ export default createStore({
     isNavFixed: false,
     isAbsolute: false,
     showNavs: true,
-    showSidenav: true,
+    showSidenav: false,
     showNavbar: true,
     showFooter: true,
     showMain: true,
@@ -24,17 +24,18 @@ export default createStore({
       state.showConfig = !state.showConfig;
     },
     navbarMinimize(state) {
-      const sidenav_show = document.querySelector(".g-sidenav-show");
+      state.showSidenav = !state.showSidenav
+      // const sidenav_show = document.querySelector(".g-sidenav-show");
 
-      if (sidenav_show.classList.contains("g-sidenav-hidden")) {
-        sidenav_show.classList.remove("g-sidenav-hidden");
-        sidenav_show.classList.add("g-sidenav-pinned");
-        state.isPinned = true;
-      } else {
-        sidenav_show.classList.add("g-sidenav-hidden");
-        sidenav_show.classList.remove("g-sidenav-pinned");
-        state.isPinned = false;
-      }
+      // if (sidenav_show.classList.contains("g-sidenav-hidden")) {
+      //   sidenav_show.classList.remove("g-sidenav-hidden");
+      //   sidenav_show.classList.add("g-sidenav-pinned");
+      //   state.isPinned = true;
+      // } else {
+      //   sidenav_show.classList.add("g-sidenav-hidden");
+      //   sidenav_show.classList.remove("g-sidenav-pinned");
+      //   state.isPinned = false;
+      // }
     },
     sidebarType(state, payload) {
       state.sidebarType = payload;

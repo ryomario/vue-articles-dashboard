@@ -23,7 +23,6 @@ Coded by www.creative-tim.com
       this.$store.state.isTransparent,
       this.$store.state.isRTL ? 'fixed-end' : 'fixed-start'
     ]"
-    v-if="this.$store.state.showSidenav"
   />
   <main
     class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"

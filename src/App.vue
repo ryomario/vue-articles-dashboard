@@ -55,6 +55,9 @@ import Navbar from "@/examples/Navbars/Navbar.vue";
 import AppFooter from "@/examples/Footer.vue";
 import { mapMutations } from "vuex";
 
+import d$auth from '@/store/auth.d';
+import { mapActions } from "pinia";
+
 export default {
   name: "App",
   components: {
@@ -64,7 +67,8 @@ export default {
     AppFooter
   },
   methods: {
-    ...mapMutations(["toggleConfigurator", "navbarMinimize"])
+    ...mapMutations(["toggleConfigurator", "navbarMinimize"]),
+    ...mapActions(d$auth,['a$userValidation'])
   },
   computed: {
     navClasses() {
@@ -74,6 +78,22 @@ export default {
         "position-absolute px-4 mx-0 w-100 z-index-2": this.$store.state.isAbsolute,
         "px-0 mx-4": !this.$store.state.isAbsolute
       };
+    }
+  },
+  async created() {
+    try {
+      await this.a$userValidation();
+    } catch (error) {
+      // tidak perlu di handle karena hanya untuk inisiasi state user
+      // console.log('erro',error)
+    }
+  },
+  async updated() {
+    try {
+      await this.a$userValidation();
+    } catch (error) {
+      // tidak perlu di handle karena hanya untuk inisiasi state user
+      // console.log('erro',error)
     }
   },
   beforeMount() {

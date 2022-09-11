@@ -3,9 +3,9 @@
     <div class="row">
       <div class="col-12">
         <navbar
-          isBlur="blur  border-radius-lg my-3 py-2 start-0 end-0 mx-4 shadow"
-          v-bind:darkMode="true"
-          isBtn="bg-gradient-success"
+        isBlur="blur  border-radius-lg my-3 py-2 start-0 end-0 mx-4 shadow"
+        v-bind:darkMode="this.$store.state.darkMode"
+        isBtn="bg-gradient-success"
         />
       </div>
     </div>
@@ -20,6 +20,13 @@
                 <div class="pb-0 card-header text-start">
                   <h4 class="font-weight-bolder">Sign In</h4>
                   <p class="mb-0">Enter your email and password to sign in</p>
+                  <div class="col-sm mt-3" v-if="alert">
+                    <argon-alert :color="alert.type" icon="ni ni-bell-55 ni-lg" >
+                      <strong>{{alert.name}}</strong>
+                      <hr>
+                      {{alert.message}}
+                    </argon-alert>
+                  </div>  
                 </div>
                 <div class="card-body">
                   <form role="form" @submit.prevent="(e) => submit(e.target)">
@@ -29,7 +36,7 @@
                     <div class="mb-3">
                       <argon-input type="password" placeholder="Password" name="password" size="lg" />
                     </div>
-                    <argon-switch id="rememberMe">Remember me</argon-switch>
+                    <argon-switch id="rememberMe" name="remember" checked>Remember me</argon-switch>
 
                     <div class="text-center">
                       <argon-button
@@ -75,14 +82,19 @@
       </div>
     </section>
   </main>
+  <vue-loading :active="isLoading" :can-cancel="false" :is-full-page="true" :lock-scroll="true"/>
 </template>
 
 <script>
+import d$auth from "@/store/auth.d";
+import { mapActions, mapState } from 'pinia';
 import Navbar from "@/examples/PageLayout/Navbar.vue";
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonSwitch from "@/components/ArgonSwitch.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
 const body = document.getElementsByTagName("body")[0];
+import VueLoading from 'vue-loading-overlay';
+import ArgonAlert from "@/components/ArgonAlert.vue";
 
 export default {
   name: "signin",
@@ -91,6 +103,15 @@ export default {
     ArgonInput,
     ArgonSwitch,
     ArgonButton,
+    VueLoading,
+    ArgonAlert
+  },
+  data: () => ({
+    isLoading: false,
+    alert: undefined
+  }),
+  computed: {
+    ...mapState(d$auth,['g$user'])
   },
   created() {
     this.$store.state.hideConfigButton = true;
@@ -98,6 +119,14 @@ export default {
     this.$store.state.showSidenav = false;
     this.$store.state.showFooter = false;
     body.classList.remove("bg-gray-100");
+  },
+  beforeMount() {
+    this.alert = undefined;
+  },
+  mounted() {
+    if (this.g$user) {
+      this.$router.replace('/')
+    }
   },
   beforeUnmount() {
     this.$store.state.hideConfigButton = false;
@@ -107,14 +136,36 @@ export default {
     body.classList.add("bg-gray-100");
   },
   methods: {
+    ...mapActions(d$auth,['a$login']),
     async submit(form){
+      this.isLoading = true
       const username = form['username'].value
       const password = form['password'].value
 
       const input = {
         username, password
       }
-      console.log('input',input)
+      // console.log('input',input)
+      try {
+        const isLoggedin = await this.a$login(input)
+        if (isLoggedin) {
+          this.alert = {
+            type: 'succes',
+            name: 'Login Success',
+            message: `Loggedin as ${username}`
+          }
+          this.$router.push('/')
+        }
+      } catch (error) {
+        // console.error(error)
+        this.alert = {
+          type: 'danger',
+          name: error.name ?? 'Error',
+          message: error.error?? error.message
+        }
+      } finally {
+        this.isLoading = false
+      }
     }
   }
 };

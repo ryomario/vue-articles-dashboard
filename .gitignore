@@ -24,4 +24,4 @@ pnpm-debug.log*
 *.sw?
 
 # lock files
-*lock.*
+# *lock.*

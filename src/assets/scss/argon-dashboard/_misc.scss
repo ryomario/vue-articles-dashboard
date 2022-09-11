@@ -16,10 +16,10 @@
   }
 
   &.blur-light {
-    background-color: $blur-light-background;
+    background-color: $blur-light-background !important;
   }
   &.blur-dark {
-    background-color: $blur-dark-background;
+    background-color: $blur-dark-background !important;
   }
 }
 

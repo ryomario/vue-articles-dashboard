@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <navbar
-        isBlur="blur  border-radius-lg my-3 py-2 start-0 end-0 mx-4 shadow"
+        :isBlur="`blur ${this.$store.state.darkMode?'navbar-dark blur-dark':''} border-radius-lg my-3 py-2 start-0 end-0 mx-4 shadow`"
         v-bind:darkMode="this.$store.state.darkMode"
         isBtn="bg-gradient-success"
         />
@@ -16,7 +16,7 @@
         <div class="container">
           <div class="row">
             <div class="mx-auto col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0">
-              <div class="card card-plain">
+              <div class="card">
                 <div class="pb-0 card-header text-start">
                   <h4 class="font-weight-bolder">Sign In</h4>
                   <p class="mb-0">Enter your email and password to sign in</p>
@@ -131,7 +131,7 @@ export default {
   beforeUnmount() {
     this.$store.state.hideConfigButton = false;
     this.$store.state.showNavbar = true;
-    this.$store.state.showSidenav = true;
+    // this.$store.state.showSidenav = true;
     this.$store.state.showFooter = true;
     body.classList.add("bg-gray-100");
   },

@@ -2,14 +2,13 @@
   <!-- Navbar -->
   <nav
     class="navbar navbar-expand-lg top-0 z-index-3 position-absolute mt-4"
-    :class="isBlur ? isBlur : 'shadow-none my-2 navbar-transparent w-100'"
+    :class="[isBlur ? isBlur : 'shadow-none my-2 navbar-transparent start-0 end-0']"
   >
     <div class="container ps-2 pe-0">
       <router-link
         class="navbar-brand font-weight-bolder ms-lg-0 ms-3"
-        :class="darkMode ? 'text-black' : 'text-white'"
         to="/"
-        >Argon Dashboard 2</router-link
+        >{{this.$store.state.titleApp}}</router-link
       >
       <button
         class="shadow-none navbar-toggler ms-2"
@@ -28,7 +27,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navigation">
         <ul class="navbar-nav mx-auto">
-          <li class="nav-item">
+          <li class="nav-item" v-if="g$user">
             <router-link
               class="nav-link d-flex align-items-center me-2 active"
               aria-current="page"
@@ -37,17 +36,15 @@
               <i
                 class="fa fa-chart-pie opacity-6 me-1"
                 aria-hidden="true"
-                :class="isBlur ? 'text-dark' : 'text-white'"
               ></i>
               Dashboard
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="g$user">
             <router-link class="nav-link me-2" to="/profile">
               <i
                 class="fa fa-user opacity-6 me-1"
                 aria-hidden="true"
-                :class="isBlur ? 'text-dark' : 'text-white'"
               ></i>
               Profile
             </router-link>
@@ -57,7 +54,6 @@
               <i
                 class="fas fa-user-circle opacity-6 me-1"
                 aria-hidden="true"
-                :class="isBlur ? 'text-dark' : 'text-white'"
               ></i>
               Sign Up
             </router-link>
@@ -67,7 +63,6 @@
               <i
                 class="fas fa-key opacity-6 me-1"
                 aria-hidden="true"
-                :class="isBlur ? 'text-dark' : 'text-white'"
               ></i>
               Sign In
             </router-link>
@@ -93,6 +88,9 @@
 import downArrWhite from "@/assets/img/down-arrow-white.svg";
 import downArrBlack from "@/assets/img/down-arrow-dark.svg";
 
+import d$auth from '@/store/auth.d';
+import { mapState } from "pinia";
+
 export default {
   name: "navbar",
   data() {
@@ -111,11 +109,7 @@ export default {
     }
   },
   computed: {
-    darkModes() {
-      return {
-        "text-dark": this.darkMode
-      };
-    }
+    ...mapState(d$auth, ['g$user'])
   }
 };
 </script>

@@ -27,7 +27,7 @@
         <!-- End Toggle Button -->
       </div>
       <hr class="my-1 horizontal dark" />
-      <div class="pt-0 card-body pt-sm-3">
+      <div class="pt-0 card-body pt-sm-3 overflow-scroll">
         <!-- Sidebar Backgrounds -->
         <div>
           <h6 class="mb-0">Sidebar Colors</h6>

@@ -156,7 +156,7 @@ export default {
   beforeUnmount() {
     this.$store.state.hideConfigButton = false;
     this.$store.state.showNavbar = true;
-    this.$store.state.showSidenav = true;
+    // this.$store.state.showSidenav = true;
     this.$store.state.showFooter = true;
     body.classList.add("bg-gray-100");
   },

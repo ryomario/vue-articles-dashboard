@@ -22,21 +22,22 @@ const d$certCookies = () => d$cookies(COOKIE_CERT_KEY)
 const s$certCookies = (token, { datetime }) => s$cookies(COOKIE_CERT_KEY,token,{datetime})
 const g$certCookies = () => g$cookies(COOKIE_CERT_KEY)
 const g$certUserCookies = () => {
-    const token = getCookies(COOKIE_CERT_KEY);
+    const token = g$cookies(COOKIE_CERT_KEY);
     if (token) {
         const { id, username, exp } = parseJwt(token);
-        if (!id) return d$cookies(COOKIE_CERT_KEY);
+        const dn = Date.now() / 1000
+        if (dn > exp) {
+            d$cookies(COOKIE_CERT_KEY);
+            throw Error('Session Expired!')
+        }
         return {
             id,
             username,
             exp,
         };
     }
-    return {
-        id: undefined,
-        username: undefined,
-        exp: undefined,
-    };
+    // console.log('get',token)
+    throw Error('Session not found!')
 };
 
 export { s$cookies, g$cookies, d$cookies, g$certCookies, s$certCookies, d$certCookies, g$certUserCookies };

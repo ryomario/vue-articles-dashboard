@@ -19,7 +19,7 @@ baseApi.interceptors.request.use(
     return config;
   },
   (error) => {
-    throw error;
+    throw error?.message ?? error;
   },
 );
 
@@ -30,6 +30,8 @@ baseApi.interceptors.response.use(
       case 401:
         d$certCookies();
         break;
+      case 500:
+        throw Error('Internal Server Error')
       default:
         break;
     }

@@ -2,6 +2,7 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
+    titleApp: 'Go-Blog Dashboard',
     hideConfigButton: false,
     isPinned: true,
     showConfig: false,

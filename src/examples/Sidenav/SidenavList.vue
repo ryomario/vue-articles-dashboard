@@ -104,7 +104,7 @@
           >
         </a>
       </li>
-      <li class="nav-item" v-if="!g$user">
+      <!-- <li class="nav-item" v-if="!g$user">
         <sidenav-item
           url="/signin"
           :class="getRoute() === 'signin' ? 'active' : ''"
@@ -125,7 +125,7 @@
             <i class="ni ni-collection text-info text-sm opacity-10"></i>
           </template>
         </sidenav-item>
-      </li>
+      </li> -->
     </ul>
   </div>
   <!-- <div class="pt-3 mx-3 mt-3 sidenav-footer">
@@ -168,7 +168,7 @@ export default {
       try {
         const isLoggedout = await this.a$logout()
         if (isLoggedout) {
-          this.$router.push('/signin')
+          // this.$router.push('/signin')
         } else {
           console.log('gagal logout')
         }

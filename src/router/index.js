@@ -5,8 +5,8 @@ import Billing from "../views/Billing.vue";
 // import VirtualReality from "../views/VirtualReality.vue";
 // import RTL from "../views/Rtl.vue";
 import Profile from "../views/Profile.vue";
-import Signup from "../views/Signup.vue";
-import Signin from "../views/Signin.vue";
+// import Signup from "../views/Signup.vue";
+// import Signin from "../views/Signin.vue";
 
 const routes = [
   {
@@ -44,16 +44,16 @@ const routes = [
     name: "Profile",
     component: Profile,
   },
-  {
-    path: "/signin",
-    name: "Signin",
-    component: Signin,
-  },
-  {
-    path: "/signup",
-    name: "Signup",
-    component: Signup,
-  },
+  // {
+  //   path: "/signin",
+  //   name: "Signin",
+  //   component: Signin,
+  // },
+  // {
+  //   path: "/signup",
+  //   name: "Signup",
+  //   component: Signup,
+  // },
   
 ];
 

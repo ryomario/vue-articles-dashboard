@@ -34,7 +34,7 @@
           </div>
         </div>
         <ul class="navbar-nav justify-content-end">
-          <li class="nav-item d-flex align-items-center" v-if="!g$user">
+          <!-- <li class="nav-item d-flex align-items-center" v-if="!g$user">
             <router-link
               :to="{ name: 'Signin' }"
               class="px-0 nav-link font-weight-bold text-white"
@@ -49,7 +49,7 @@
               >
               <span v-else class="d-sm-inline d-none">Sign In</span>
             </router-link>
-          </li>
+          </li> -->
           <li class="nav-item d-xl-none px-3 d-flex align-items-center">
             <a
               href="#"

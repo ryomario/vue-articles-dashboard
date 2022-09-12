@@ -49,7 +49,7 @@
               Profile
             </router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link class="nav-link me-2" to="/signup">
               <i
                 class="fas fa-user-circle opacity-6 me-1"
@@ -66,7 +66,7 @@
               ></i>
               Sign In
             </router-link>
-          </li>
+          </li> -->
         </ul>
         <ul class="navbar-nav d-lg-block d-none">
           <li class="nav-item">

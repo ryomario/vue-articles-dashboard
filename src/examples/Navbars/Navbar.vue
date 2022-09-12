@@ -236,7 +236,7 @@ export default {
       try {
         const isLoggedout = await this.a$logout()
         if (isLoggedout) {
-          this.$router.push('/signin')
+          // this.$router.push('/signin')
         } else {
           console.log('gagal logout')
         }

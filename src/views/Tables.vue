@@ -60,7 +60,7 @@ export default {
   mounted() {
     if (this.g$user == undefined) {
       // console.error('App Updates',error)
-      this.$router.replace('/signin')
+      // this.$router.replace('/signin')
     }
   },
 };

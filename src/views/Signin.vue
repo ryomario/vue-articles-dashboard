@@ -157,7 +157,7 @@ export default {
           this.$router.push('/')
         }
       } catch (error) {
-        // console.error(error)
+        console.error('Login error',error)
         this.alert = {
           type: 'danger',
           name: error.name ?? 'Error',

@@ -5,7 +5,7 @@ const s$cookies = (name, value, { datetime }) => {
     if (datetime) d.setTime(datetime);
     const expires = `expires=${d.toUTCString()}`;
     try {
-        document.cookie = `${name}=${value};${expires};path=/;SameSite=Lax`;
+        document.cookie = `${name}=${value};${expires};path=/;SameSite=None;Secure`;
     } catch (error) {
         console.log('error cookies',error)
         throw error

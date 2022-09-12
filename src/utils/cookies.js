@@ -1,16 +1,16 @@
 import parseJwt from '@/utils/parseJwt';
 
 const s$cookies = (name, value, { datetime }) => {
-    console.log('s$cookies:name',name)
-    console.log('s$cookies:value',value)
-    console.log('s$cookies:datetime',datetime)
+    // console.log('s$cookies:name',name)
+    // console.log('s$cookies:value',value)
+    // console.log('s$cookies:datetime',datetime)
     const d = new Date();
     if (datetime) d.setTime(datetime);
     const expires = `expires=${d.toUTCString()}`;
     try {
         document.cookie = `${name}=${value};${expires};path=/;SameSite=None;Secure`;
     } catch (error) {
-        console.log('error cookies',error)
+        // console.log('error cookies',error)
         throw error
     }
 };

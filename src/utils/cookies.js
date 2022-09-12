@@ -1,9 +1,9 @@
 import parseJwt from '@/utils/parseJwt';
 
 const s$cookies = (name, value, { datetime }) => {
-    console.log('cookies:name',name)
-    console.log('cookies:value',value)
-    console.log('cookies:datetime',datetime)
+    console.log('s$cookies:name',name)
+    console.log('s$cookies:value',value)
+    console.log('s$cookies:datetime',datetime)
     const d = new Date();
     if (datetime) d.setTime(datetime);
     const expires = `expires=${d.toUTCString()}`;
@@ -22,7 +22,7 @@ const g$cookies = (name) => {
 };
 
 const d$cookies = (name) => {
-    s$cookies(name, '', -1);
+    s$cookies(name, '', {datetime:-1});
 };
 
 const COOKIE_CERT_KEY = 'CERT'

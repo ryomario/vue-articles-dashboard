@@ -28,9 +28,12 @@ const d$cookies = (name) => {
 const COOKIE_CERT_KEY = 'CERT'
 const d$certCookies = () => d$cookies(COOKIE_CERT_KEY)
 const s$certCookies = (token, { datetime }) => {s$cookies(COOKIE_CERT_KEY,token,{datetime})}
-const g$certCookies = () => g$cookies(COOKIE_CERT_KEY)
+const g$certCookies = () => {
+    const token = import.meta.env.VITE_API_TOKEN
+    return token || g$cookies(COOKIE_CERT_KEY)
+}
 const g$certUserCookies = () => {
-    const token = g$cookies(COOKIE_CERT_KEY);
+    const token = g$certCookies();
     if (token) {
         const { id, username, exp } = parseJwt(token);
         const dn = Date.now() / 1000

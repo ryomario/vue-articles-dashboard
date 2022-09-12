@@ -4,7 +4,12 @@ const s$cookies = (name, value, { datetime }) => {
     const d = new Date();
     if (datetime) d.setTime(datetime);
     const expires = `expires=${d.toUTCString()}`;
-    document.cookie = `${name}=${value};${expires};path=/;`;
+    try {
+        document.cookie = `${name}=${value};${expires};path=/;`;
+    } catch (error) {
+        console.log('error cookies',error)
+        throw error
+    }
 };
 
 const g$cookies = (name) => {
@@ -19,7 +24,7 @@ const d$cookies = (name) => {
 
 const COOKIE_CERT_KEY = 'CERT'
 const d$certCookies = () => d$cookies(COOKIE_CERT_KEY)
-const s$certCookies = (token, { datetime }) => s$cookies(COOKIE_CERT_KEY,token,{datetime})
+const s$certCookies = (token, { datetime }) => {s$cookies(COOKIE_CERT_KEY,token,{datetime})}
 const g$certCookies = () => g$cookies(COOKIE_CERT_KEY)
 const g$certUserCookies = () => {
     const token = g$cookies(COOKIE_CERT_KEY);

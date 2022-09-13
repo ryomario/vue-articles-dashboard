@@ -10,5 +10,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  base: process.env.NODE_ENV === "production" ? "/vue-articles-dashboard/" : "/",
+  base: process.env.NODE_ENV === "production" ? import.meta.env.VITE_BASE_URL : "/",
 })
